@@ -45,11 +45,21 @@ export default class HomeScreen extends Component {
         if(this.state.data.length > 0) {
             return (
                     this.state.data.map((item, index) => {
+                        let hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Ahad'];
+                        let bulan = ['Januari', 'Pebruari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'];
+                        var d = new Date(item.pubDate);
+                        d = hari[d.getDay()] + ', ' + d.getDate() + ' ' + bulan[d.getMonth()];
+                        d = d.toString().toUpperCase();
+
                         return (
-                            <HomeCard key={index} title={item.title} />
-                            // <View key={index} style={{}}>
-                            //     <Text>{item.title}</Text>
-                            // </View>
+                            <HomeCard 
+                                key={index} 
+                                title={item.title} 
+                                date={d}
+                                thumbnail={item.thumbnail}
+                                categories={item.categories}
+                                description={item.description}
+                            />
                         )
                     })
             )
@@ -61,7 +71,7 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <Container stylesss={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Content style={{paddingLeft: 20, paddingRight: 20}}>
+                <Content style={{paddingLeft: 20, paddingRight: 20, paddingTop: 20}}>
                     {this.renderCard()}
                 </Content>
             </Container>
